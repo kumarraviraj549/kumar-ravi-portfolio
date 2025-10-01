@@ -48,12 +48,7 @@ const Navbar = React.memo(() => {
     // Update active section immediately for better UX
     setActiveSection(href.substring(1));
     
-    // If we're not on the main page, navigate back first
-    if (window.location.pathname !== '/') {
-      window.history.pushState({}, '', '/');
-    }
-    
-    // Small delay to ensure we're on the main page
+    // Scroll to the section directly
     setTimeout(() => {
       const section = document.querySelector(href);
       if (section) {

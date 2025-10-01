@@ -42,7 +42,7 @@ const About = () => {
                 Let's Work Together
               </Button>
               <Button 
-                href={`${process.env.GITHUB_PAGES === 'true' ? '/kumar-ravi-portfolio/Resume.pdf' : '/Resume.pdf'}`}
+                href="/Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 variant="outline"

@@ -42,7 +42,7 @@ const About = () => {
                 Let's Work Together
               </Button>
               <Button 
-                href="/Resume.pdf"
+                href="Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 variant="outline"

@@ -1,0 +1,50 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local env files
+.env
+.env.*
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Vite cache
+.vite/
+
+# Test coverage
+coverage/
+
+# IDE/editor settings
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Misc
+*.local
+
+# Deployment script output
+*.tgz
+
+# Mac system files
+Icon?
+
+# Windows system files
+Desktop.ini
+
+# Optional: ignore test output
+*.test-results.json
+
+# Optional: ignore personal notes
+notes.md

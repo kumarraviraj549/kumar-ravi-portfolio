@@ -1,0 +1,250 @@
+/* Enhanced Performance Optimizations CSS */
+
+/* Critical rendering optimizations */
+.hero-container,
+.navbar {
+  contain: layout style paint;
+}
+
+/* Enable hardware acceleration for animations (only when needed) */
+.hero-avatar:hover,
+.btn:hover,
+.project-card:hover,
+.service-card:hover,
+.testimonial-card:hover {
+  will-change: transform;
+  transform: translate3d(0, -5px, 0);
+  backface-visibility: hidden;
+}
+
+/* Reset will-change after animation */
+.hero-avatar:not(:hover),
+.btn:not(:hover),
+.project-card:not(:hover),
+.service-card:not(:hover),
+.testimonial-card:not(:hover) {
+  will-change: auto;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Enhanced scroll performance */
+.scroll-to-top,
+.nav-link,
+.floating-icons .icon {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Optimize images for better loading */
+img {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 300px;
+}
+
+/* Optimize layout shifts */
+.hero-container,
+.projects-grid,
+.services-grid,
+.testimonials-grid {
+  contain: layout style paint;
+}
+
+/* Enhanced animations for 60fps */
+.animate-fade-in {
+  animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  transform: translate3d(0, 0, 0);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 40px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Stagger animations for better UX */
+.animate-on-scroll:nth-child(1) { animation-delay: 0.1s; }
+.animate-on-scroll:nth-child(2) { animation-delay: 0.2s; }
+.animate-on-scroll:nth-child(3) { animation-delay: 0.3s; }
+.animate-on-scroll:nth-child(4) { animation-delay: 0.4s; }
+.animate-on-scroll:nth-child(5) { animation-delay: 0.5s; }
+
+/* Loading fallback optimization */
+.loading-fallback {
+  contain: layout style paint;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  gap: 1rem;
+  color: var(--text-secondary);
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border-color);
+  border-top: 3px solid var(--text-accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  transform: translate3d(0, 0, 0);
+}
+
+@keyframes spin {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  100% { transform: translate3d(0, 0, 0) rotate(360deg); }
+}
+
+/* Optimize scroll performance */
+.scroll-to-top {
+  contain: layout style paint;
+  transform: translate3d(0, 0, 0);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Optimize navbar performance */
+.navbar {
+  contain: layout style paint;
+  transform: translate3d(0, 0, 0);
+  will-change: background-color, box-shadow;
+}
+
+/* Critical rendering path optimizations */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-avatar {
+    animation: float 8s ease-in-out infinite;
+  }
+  
+  .floating-icons .icon {
+    animation: iconFloat 6s ease-in-out infinite;
+  }
+  
+  .floating-icons .icon:nth-child(1) { animation-delay: 0s; }
+  .floating-icons .icon:nth-child(2) { animation-delay: 1.5s; }
+  .floating-icons .icon:nth-child(3) { animation-delay: 3s; }
+  .floating-icons .icon:nth-child(4) { animation-delay: 4.5s; }
+  
+  .hero-badge {
+    animation: pulse 4s ease-in-out infinite;
+  }
+  
+  .gradient-text {
+    animation: gradientShift 8s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  33% { transform: translate3d(0, -20px, 0); }
+  66% { transform: translate3d(10px, -10px, 0); }
+}
+
+@keyframes iconFloat {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+  33% { transform: translate3d(-15px, -20px, 0) rotate(120deg) scale(1.1); }
+  66% { transform: translate3d(15px, -30px, 0) rotate(240deg) scale(0.9); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(0, 0, 0) scale(1.02); }
+}
+
+@keyframes gradientShift {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(30deg); }
+}
+
+/* Intersection Observer optimization */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced hover effects with GPU acceleration */
+.btn:hover,
+.project-card:hover,
+.service-card:hover,
+.testimonial-card:hover {
+  transform: translate3d(0, -5px, 0);
+}
+
+/* Theme transition optimization */
+* {
+  transition: 
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* Reduce repaints and layout thrashing */
+.project-grid,
+.services-grid,
+.testimonials-grid {
+  contain: layout;
+}
+
+/* Memory optimization for large lists */
+.logos-list img {
+  content-visibility: auto;
+  contain-intrinsic-size: 120px 38px;
+}
+
+/* Optimized focus management */
+*:focus {
+  outline: 2px solid var(--text-accent);
+  outline-offset: 2px;
+  transition: outline-color 0.2s ease;
+}
+
+/* Respect user preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .animate-on-scroll {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .btn {
+    border: 2px solid currentColor;
+  }
+  
+  .gradient-text {
+    -webkit-text-fill-color: unset;
+    background: none;
+    color: var(--text-accent);
+  }
+}
+
+/* Print styles optimization */
+@media print {
+  .navbar,
+  .scroll-to-top,
+  .floating-icons {
+    display: none;
+  }
+  
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

@@ -1,4 +1,4 @@
-// This script will deploy the Vite build output to the 'gh-pages' branch for GitHub Pages hosting
+// This script will deploy the webpack build output to the 'gh-pages' branch for GitHub Pages hosting
 const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');

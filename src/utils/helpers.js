@@ -76,3 +76,22 @@ export const trackEvent = (eventName, properties = {}) => {
     window.gtag('event', eventName, properties);
   }
 };
+
+// Base path utilities for GitHub Pages deployment
+export const getBasePath = () => {
+  if (typeof window === 'undefined') return '/';
+  
+  // For GitHub Pages deployment, the base path includes the repository name
+  if (window.location.hostname === 'kumarraviraj549.github.io' && 
+      window.location.pathname.startsWith('/kumar-ravi-portfolio')) {
+    return '/kumar-ravi-portfolio/';
+  }
+  
+  return '/';
+};
+
+export const navigateToPath = (path = '') => {
+  const basePath = getBasePath();
+  const fullPath = basePath + path.replace(/^\//, '');
+  window.history.pushState({}, '', fullPath);
+};

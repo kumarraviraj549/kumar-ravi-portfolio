@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import ThemeToggle from './ThemeToggle';
 import { NAV_LINKS } from '../constants/navigation';
-import { throttle } from '../utils/helpers';
+import { throttle, getBasePath } from '../utils/helpers';
 import './Navbar.css';
 
 const Navbar = React.memo(() => {
@@ -48,7 +48,15 @@ const Navbar = React.memo(() => {
     // Update active section immediately for better UX
     setActiveSection(href.substring(1));
     
-    // Scroll to the section directly
+    // Get the correct base path for the deployment
+    const basePath = getBasePath();
+    
+    // If we're not on the main page, navigate back first
+    if (window.location.pathname !== basePath) {
+      window.history.pushState({}, '', basePath);
+    }
+    
+    // Small delay to ensure we're on the main page
     setTimeout(() => {
       const section = document.querySelector(href);
       if (section) {

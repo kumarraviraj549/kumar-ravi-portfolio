@@ -1,0 +1,21 @@
+<!--
+  404.html for GitHub Pages SPA redirect
+  This file will redirect all 404s to index.html so client-side routing works.
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="refresh" content="0; url=/kumar-ravi-portfolio/" />
+    <script>
+      // If JS is enabled, redirect to the correct path
+      var l = window.location;
+      var path = l.pathname.replace(/^\/kumar-ravi-portfolio/, '');
+      var hash = l.hash || '';
+      window.location.replace('/kumar-ravi-portfolio/' + path + hash);
+    </script>
+    <title>Redirecting...</title>
+  </head>
+  <body>
+    <p>Redirecting to <a href="/kumar-ravi-portfolio/">/kumar-ravi-portfolio/</a>...</p>
+  </body>
+</html>

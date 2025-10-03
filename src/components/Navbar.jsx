@@ -72,35 +72,88 @@ const Navbar = React.memo(() => {
     }, 100);
   }, []);
 
-  const toggleMenu = useCallback(() => {
+  const toggleMenu = useCallback((e) => {
+    e.preventDefault();
+    e.stopPropagation();
     setMenuOpen(prev => !prev);
   }, []);
 
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (menuOpen && !e.target.closest('.navbar')) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, [menuOpen]);
+
+  // Prevent body scroll when menu is open on mobile
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [menuOpen]);
+
   return (
-    <nav className={`navbar${scrolled ? ' scrolled' : ''}`}>  
+    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="nav-content">
-        <a href="#hero" className="nav-brand">
-        </a>
-        <button className="nav-toggle" onClick={toggleMenu} aria-label="Toggle menu">
+        <div className="nav-brand">
+          <a 
+            href="#hero" 
+            className="brand-name"
+            onClick={(e) => handleNavClick(e, '#hero')}
+          >
+            Kumar Ravi
+          </a>
+        </div>
+
+        <div className={`nav-menu ${menuOpen ? 'open' : ''}`}>
+          {NAV_LINKS.map(({ href, label }) => (
+            <a
+              key={href}
+              href={href}
+              className={`nav-link ${activeSection === href.substring(1) ? 'active' : ''}`}
+              onClick={(e) => handleNavClick(e, href)}
+            >
+              {label}
+            </a>
+          ))}
+          
+          <div className="nav-actions">
+            <ThemeToggle />
+            <a
+              href="#contact"
+              className="btn btn-primary btn-nav"
+              onClick={(e) => handleNavClick(e, '#contact')}
+            >
+              Hire Me
+            </a>
+          </div>
+        </div>
+
+        <button 
+          className={`nav-toggle ${menuOpen ? 'open' : ''}`}
+          onClick={toggleMenu}
+          onTouchStart={toggleMenu}
+          aria-label="Toggle navigation menu"
+          aria-expanded={menuOpen}
+        >
           <span className="hamburger"></span>
         </button>
-        <ul className={`nav-menu${menuOpen ? ' open' : ''}`}>
-          {NAV_LINKS.map(link => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                className={`nav-link ${activeSection === link.href.substring(1) ? 'active' : ''}`}
-                onClick={e => handleNavClick(e, link.href)}
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-          <li className="nav-actions">
-            <ThemeToggle />
-            <a href="#contact" className="btn btn-nav btn-primary">Hire Me</a>
-          </li>
-        </ul>
       </div>
     </nav>
   );
